@@ -1,5 +1,5 @@
-ETML - Enhanced Text Markup Language
+ETML
 ===
-HTML with variables, logic, templates, and shortcuts
+Enhanced Text Markup Language
 
 http://etml.io
