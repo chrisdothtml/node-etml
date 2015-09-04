@@ -1,6 +1,6 @@
-ETML - Enhanced Text Markup Language
+ETML
 ===
-HTML with variables, logic, templates, and shortcuts
+Enhanced Text Markup Language
 
 ### Demo
 This is a demo that shows off all the capabilities of ETML
