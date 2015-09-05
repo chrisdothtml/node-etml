@@ -5,7 +5,7 @@
 
 module.exports = (lines, callback) ->
 
-	newLines = lines.map (line) ->
+	data = lines.map (line) ->
 
 		# inline comments
 		if line.indexOf('//') > -1
@@ -30,4 +30,4 @@ module.exports = (lines, callback) ->
 	.filter (line) ->
 		return line
 
-	callback null, newLines
+	callback null, data
