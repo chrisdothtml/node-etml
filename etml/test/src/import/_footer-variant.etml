@@ -1,0 +1,7 @@
+<footer>
+	<contain>
+		<span class='copyright'>Copyright &copy; 2015 Company</span>
+	</contain>
+</footer>
+
+<js url=dist+'/core.js'+version>

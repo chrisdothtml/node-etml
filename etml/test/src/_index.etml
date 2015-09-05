@@ -1,0 +1,31 @@
+@import 'import/_helpers.etml'
+
+// For title
+pagename = 'Home'
+
+tom and hank
+
+<html lang='en'>//Html tag
+	<head>
+		@import 'import/head'
+	</head>
+	<body>
+		@import 'import/_header'
+
+		// width: 100px
+		<main>
+			<h1>Hello, ETML.</h1>// Hey to you too, stranger. // piggyback comment
+		</main>
+
+		@import 'import/footer.etml'
+	</body>
+</html>
+
+// Hey this is a comment
+
+
+
+
+
+
+// Just writing some messages to see how they'll compile :)

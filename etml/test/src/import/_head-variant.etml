@@ -1,0 +1,4 @@
+<title>ETML: Enhanced Text Markup Language</title>
+<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+
+<css url=dist+'/core.css'+version>

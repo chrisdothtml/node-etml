@@ -1,0 +1,19 @@
+@import 'import/_helpers.etml'
+
+// For fancybox logic
+fancybox = true
+
+/*<html lang='en'>
+	<head>
+		@import 'import/_head'
+	</head>
+	<body>
+		@import 'import/_header.etml'
+
+		<main>
+			<h1>Here you can contact us!</h1>
+		</main>
+
+		@import 'import/_footer.etml'
+	</body>
+</html>*/
