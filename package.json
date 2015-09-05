@@ -1,0 +1,17 @@
+{
+	"name": "etml",
+	"version": "0.0.1",
+	"description": "Enhanced Text Markup Language",
+	"homepage": "http://etml.io",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://chrisdothtml@github.com/chrisdothtml/ETML.git"
+	},
+	"author": "Chris Deacy <chris@deacy.io> (http://deacy.io)",
+	"keywords": [
+		"html",
+		"enhanced",
+		"preprocessor"
+	]
+}
