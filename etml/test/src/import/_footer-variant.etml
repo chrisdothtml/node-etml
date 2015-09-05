@@ -4,4 +4,4 @@
 	</contain>
 </footer>
 
-<js url=dist+'/core.js'+version>
+<js url='lib/xxxx/core.js'>
