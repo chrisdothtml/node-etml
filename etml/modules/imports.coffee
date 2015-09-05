@@ -6,7 +6,7 @@
 fs = require 'fs'
 async = require 'async'
 
-module.exports = (lines, src, callback) ->
+module.exports = (fileObj, src, callback) ->
 
 	filterUrl = (url) ->
 
@@ -56,10 +56,10 @@ module.exports = (lines, src, callback) ->
 
 	# async map so the loop doesn't get
 	# ahead of the file reading
-	async.map lines, asyncRead, (err, data) ->
+	async.map fileObj.lines, asyncRead, (err, data) ->
 		if err then return callback err, null
 
 		# join and re-slice for updated lines
-		data = data.join('\n').split('\n')
+		fileObj.lines = data.join('\n').split('\n')
 
-		return callback null, data
+		return callback null, fileObj

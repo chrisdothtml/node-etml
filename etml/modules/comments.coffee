@@ -3,9 +3,9 @@
 
 'use strict'
 
-module.exports = (lines, callback) ->
+module.exports = (fileObj, callback) ->
 
-	data = lines.map (line) ->
+	data = fileObj.lines.map (line) ->
 
 		# inline comments
 		if line.indexOf('//') > -1
@@ -30,4 +30,4 @@ module.exports = (lines, callback) ->
 	.filter (line) ->
 		return line
 
-	callback null, data
+	callback null, fileObj

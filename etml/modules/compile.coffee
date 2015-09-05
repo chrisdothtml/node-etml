@@ -15,12 +15,16 @@ module.exports = (file, src, dest, callback) ->
 		lines = data.split '\n'
 		newFilename = file.replace('.etml', '') + '.html'
 
+		fileObj =
+			lines: lines
+			file: file
+
 		# send to process module
-		process lines, src, (err, data) ->
+		process fileObj, src, (err, fileObj) ->
 			if err then return callback err, null
 
 			# lines are reunited, and it feels so good
-			output = data.join('\n')
+			output = fileObj.lines.join('\n')
 
 			fs.writeFile dest + newFilename, output, (err) ->
 				if err then return callback err, null

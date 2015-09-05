@@ -9,22 +9,22 @@ process =
 	comments: require './comments'
 	tags: require './tags'
 
-module.exports = (lines, src, callback) ->
+module.exports = (fileObj, src, callback) ->
 	
 	# send to imports module
-	process.imports lines, src, (err, data) ->
+	process.imports fileObj, src, (err, fileObj) ->
 		if err then return callback err, null
 
 		# send to comments module
-		process.comments data, (err, data) ->
+		process.comments fileObj, (err, fileObj) ->
 			if err then return callback err, null
 
 			# send to tags module
-			process.tags data, (err, data) ->
+			process.tags fileObj, (err, fileObj) ->
 				if err then return callback err, null
 
 				# remove empty lines
-				data = data.filter (line) ->
+				fileObj.lines = fileObj.lines.filter (line) ->
 					return line.trim()
 				
-				return callback null, data
+				return callback null, fileObj
