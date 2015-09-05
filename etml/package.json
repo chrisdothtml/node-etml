@@ -1,0 +1,8 @@
+{
+  "name": "etml-dev",
+  "version": "1.0.0",
+  "devDependencies": {
+    "async": "^1.4.2",
+    "htmlparser": "^1.7.7"
+  }
+}
