@@ -18,17 +18,15 @@ I built this processor out of my own necessity, and I personally use it on most 
 - [ionutvmi](https://github.com/ionutvmi) for [sublime-html](https://github.com/ionutvmi/sublime-html)
 - [workshopper](https://github.com/workshopper) for [learnyounode](https://github.com/workshopper/learnyounode)
 
----
-
-# Installation
+Installation
+===
 
 ```
 npm install node-etml
 ```
 
----
-
-# Usage
+Usage
+===
 
 Including the module
 
@@ -46,15 +44,14 @@ etml('path/to/src/', 'path/to/dest/', options);
 
 ### Options
 
----
-
-# Syntax
+Syntax
+===
 
 Much like the idea behind etml, the syntax was also inspired by [SCSS](http://sass-lang.com/documentation/file.SCSS_FOR_SASS_USERS.html).
 
 ### Comments
 
-One of my biggest gripes with HTML is the comments. Inline as well as block comments can be used in etml.
+One of my biggest gripes with HTML is the comments. They don't look very good, and you can't just quickly add them in. In etml, inline and block comments can be used.
 
 ````
 <button>Submit</button>//Submit btn
@@ -76,13 +73,13 @@ $contain = ''
 
 ### File Imports
 
-Files that are imported to etml should use the `_file.etml` format (but is not required). Files in this format can only be used in imports and will not be picked up by the compiler.
+Files that are imported to etml should use the `_file.etml` format (but it is not required). Files in this format can only be used in imports and will not be picked up by the compiler.
 
 ````
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-	@import 'inc/head.etml'
+	@import 'inc/_global-head.etml'
 </head>
 <body>
 
@@ -100,9 +97,8 @@ Providing the leading underscore and file extension are optional in file imports
 
 File imports are recursive, so you are able to import files within other imported files.
 
----
-
-# node-etml Development
+node-etml Development
+===
 
 etml is built with CoffeeScript and is compiled using Grunt. Development is best suited in the /src/ directory. To work on etml, clone the repo and run:
 
