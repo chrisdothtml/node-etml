@@ -1,4 +1,4 @@
-etml
+node-etml
 ===
 **E**nhanced **T**ext **M**arkup **L**anguage
 
@@ -17,3 +17,35 @@ I built this processor out of my own necessity, and I personally use it on most 
 - [bebraw](https://github.com/bebraw) for [mocss](https://github.com/bebraw/mocss)
 - [ionutvmi](https://github.com/ionutvmi) for [sublime-html](https://github.com/ionutvmi/sublime-html)
 - [workshopper](https://github.com/workshopper) for [learnyounode](https://github.com/workshopper/learnyounode)
+
+# Installation
+
+```
+npm install node-etml
+```
+
+# Usage
+
+Including the module
+
+```js
+var etml = require('node-etml');
+```
+
+Running etml
+
+```js
+etml('path/to/src/file.etml', 'path/to/dest/, options);
+
+etml('path/to/src/', 'path/to/dest/, options);
+```
+
+## Options
+
+# Installation
+
+etml is built using CoffeeScript and is compiled using Grunt. Development is best suited in the /src/ directory. To work on etml, clone the repo and run:
+
+```
+npm install
+```
