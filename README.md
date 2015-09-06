@@ -35,14 +35,14 @@ var etml = require('node-etml');
 Running etml
 
 ```js
-etml('path/to/src/file.etml', 'path/to/dest/, options);
+etml('path/to/src/file.etml', 'path/to/dest/', options);
 
 etml('path/to/src/', 'path/to/dest/, options);
 ```
 
 ## Options
 
-# Installation
+# Development
 
 etml is built using CoffeeScript and is compiled using Grunt. Development is best suited in the /src/ directory. To work on etml, clone the repo and run:
 
