@@ -37,7 +37,7 @@ Running etml
 ```js
 etml('path/to/src/file.etml', 'path/to/dest/', options);
 
-etml('path/to/src/', 'path/to/dest/, options);
+etml('path/to/src/', 'path/to/dest/', options);
 ```
 
 ## Options
