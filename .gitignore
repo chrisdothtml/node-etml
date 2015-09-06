@@ -42,5 +42,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# Node Modules
+# General
 node_modules/
+.sublime-grunt.cache
