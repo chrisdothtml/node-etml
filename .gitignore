@@ -46,3 +46,4 @@ Temporary Items
 node_modules/
 .sublime-grunt.cache
 test-exp/
+syntax/
