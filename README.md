@@ -155,7 +155,7 @@ npm install
 
 etml comes with an option to use [better-fs-errors](https://github.com/chrisdothtml/better-fs-errors) for its fs error reporting. This can be enabled by passing the option `useBfe: true`. The option is set to `false` by default.
 
-### Awesome modules used
+### Modules used
 
 - [async](https://github.com/caolan/async)
 - [better-fs-errors](https://github.com/chrisdothtml/better-fs-errors)
