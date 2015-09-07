@@ -158,6 +158,7 @@ etml comes with an option to use [better-fs-errors](https://github.com/chrisdoth
 ### Awesome modules used
 
 - [async](https://github.com/caolan/async)
+- [better-fs-errors](https://github.com/chrisdothtml/better-fs-errors)
 - [cheerio](https://github.com/cheeriojs/cheerio)
 - [errno](https://github.com/rvagg/node-errno)
 - [JS Beautifier](https://github.com/beautify-web/js-beautify)
