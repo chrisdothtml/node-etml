@@ -1,14 +1,15 @@
 ###
- * File: index.coffee
+ * File: index
  * Description: Handles source and destination and sends files to compiler.
 ###
 
 'use strict'
 
 # external modules
+bfe = require 'better-fs-errors'
+defaults = require 'defaults'
 fs = require 'fs'
 path = require 'path'
-errno = require 'errno'
 
 # etml modules
 compile = require './compile'
@@ -17,23 +18,21 @@ module.exports = (src, dest, options) ->
 	src = path.normalize src
 	dest = path.normalize dest
 
-	options = options || {}
-	useErrno = options.useErrno || true
+	# setup options
+	options: defaults options.etml,
+		useBfe: false
 
 	handleErr = (err) ->
-
-		if useErrno and errno.code[err.code]
-			error = '------------------------------------------------\nRAW ERROR:\n' + err + '\n\nERROR DESCRIPTION:\n' + errno.code[err.code].description + '\n------------------------------------------------'
-			throw error
-
-		else throw err
+		if options.useBfe
+			throw bfe err
+		throw err
 
 	canCompile = (filename) ->
 		return path.extname(filename) is '.etml' and filename.charAt(0) isnt '_'
 
-	# extract path
+	# check if dest is a file
 	if path.extname(dest)
-		dest = path.dirname(dest)
+		handleErr 'Provided destination is not a directory'
 
 	# add trailing slash
 	if dest.slice(-1) isnt '\\'

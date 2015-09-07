@@ -1,5 +1,5 @@
 ###
- * File: compile.coffee
+ * File: compile
  * Description: Handles file io and facilitates process methods.
 ###
 
@@ -15,7 +15,7 @@ process = require('./process')
 
 module.exports = (srcFilePath, destPath, options, handleErr) ->
 
-	options = options || {}
+	start = new Date()
 
 	fs.readFile srcFilePath, 'utf8', (err, contents) ->
 		if err then return handleErr err
@@ -25,12 +25,9 @@ module.exports = (srcFilePath, destPath, options, handleErr) ->
 		srcFile = srcFilePath.replace(srcPath, '')
 		destFile = srcFile.replace('.etml', '.html')
 
+		# set global variables
 		process.globals = globals =
-			options:
-				jsBeautify:
-					indent_level: options.indent_level || 1
-					indent_with_tabs: options.indent_with_tabs || true
-					#unescape_strings: options.unescape_strings || true
+			options: options
 			file:
 				srcPath: srcPath
 				srcFile: srcFile
@@ -47,20 +44,19 @@ module.exports = (srcFilePath, destPath, options, handleErr) ->
 		process.imports contents, (err, contents) ->
 			if err then return handleErr err
 
-			# escapes (second time in case imported files have escapes)
-			contents = process.escapes contents
-
-			# comments (second time in case imported files have comments)
-			contents = process.comments contents
-
 			# tags
 			process.tags contents, (err, contents) ->
 				if err then return handleErr err
 					
 				# beautify output before sending back
-				contents = beautify contents, globals.options.jsBeautify
+				contents = beautify contents,
+					indent_level: 1,
+					indent_with_tabs: true,
+					unescape_strings: true
 
 				fs.writeFile destPath + destFile, contents, (err) ->
 					if err then return handleErr err
 
-					return console.log 'Compiled "'+destFile+'" successfully'
+					end = new Date()
+
+					return console.log 'Compiled '+destFile+' in ' + (end.getTime() - start.getTime()) + 'ms'
