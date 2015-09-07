@@ -151,10 +151,15 @@ etml is built with CoffeeScript and is compiled using Grunt. Development is best
 npm install
 ```
 
+### Debugging
+
+etml comes with an option to use [better-fs-errors](https://github.com/chrisdothtml/better-fs-errors) for its fs error reporting. This can be enabled by passing the option `useBfe: true`. The option is set to `false` by default.
+
 ### Awesome modules used
 
 - [async](https://github.com/caolan/async)
 - [cheerio](https://github.com/cheeriojs/cheerio)
+- [errno](https://github.com/rvagg/node-errno)
 - [JS Beautifier](https://github.com/beautify-web/js-beautify)
 - [he](https://github.com/mathiasbynens/he)
 

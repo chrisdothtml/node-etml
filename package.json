@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://chrisdothtml@github.com/chrisdothtml/ETML.git"
+    "url": "https://chrisdothtml@github.com/chrisdothtml/node-etml.git"
   },
   "keywords": [
     "enhanced",
@@ -15,10 +15,13 @@
     "markup",
     "language",
     "html",
-    "preprocessor"
+    "preprocessor",
+    "node",
+    "npm"
   ],
   "dependencies": {
     "async": "^1.4.2",
+    "better-fs-errors": "^1.0.0",
     "cheerio": "^0.19.0",
     "errno": "^0.1.4",
     "he": "^0.5.0",
