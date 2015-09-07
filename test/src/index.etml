@@ -1,10 +1,10 @@
 // File: index.etml
 // Description: Homepage of the site
 <html lang='en'>
-	<head>@import 'inc/head'</head>
+	<head>@import 'inc/head';</head>
 	<body>
 	
-		@import 'inc/header'
+		@import 'inc/header';
 
 		<main>
 			<h1>Hello, ETML.</h1>
@@ -12,6 +12,6 @@
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum sit amet nunc et mattis. Sed nec nibh lectus. Pellentesque rutrum, lorem at aliquam pellentesque, nunc nibh pellentesque diam, ac aliquam sapien felis in nibh. Praesent vulputate et tellus et feugiat. Maecenas suscipit hendrerit ex ac efficitur. In varius ipsum at varius rutrum. Sed finibus gravida eleifend.</p>
 		</main>
 
-		@import 'inc/footer'
+		@import 'inc/footer';
 	</body>
 </html>

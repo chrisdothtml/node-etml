@@ -2,10 +2,7 @@
 	<div class="container">
 		<nav>
 			<ul>
-				<li><a href='index.html'>Home</a></li>
-				<li><a href='shirts.html'>Shirts</a></li>
-				<li><a href='shoes.html'>Shoes</a></li>
-				<li><a href='service.html'>Service</a></li>
+				@import 'site-links';
 			</ul>
 		</nav>
 	</div>

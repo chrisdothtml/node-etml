@@ -1,11 +1,10 @@
 ###
- * File: process.coffee
+ * File: process
  * Description: Various processing methods
 ###
 
 'use strict'
 
-# external modules
 async = require 'async'
 cheerio = require 'cheerio'
 fs = require 'fs'
@@ -22,109 +21,6 @@ module.exports =
 
 		re = /#{([^#{}]*)}/g
 		return contents.replace re, he.encode('$1', {'encodeEverything': true})
-
-	# imports()
-	# Processes @import calls
-	imports: (contents, callback) ->
-		self = this
-
-		# Array.removeDuplicates()
-		# Returns new array without duplicates from original
-		Array.prototype.removeDuplicates = ->
-			uniques = []
-
-			for item in this
-				if uniques.indexOf(item) is -1
-					uniques.push item
-
-			return uniques
-
-		# String.prepareUrl()
-		# Returns prepared URL for fs reading
-		String.prototype.prepareUrl = ->
-			url = path.normalize this
-
-			# isolate url parts
-			file = path.basename url
-			filePath = path.dirname url
-
-			# remove leading slash
-			if filePath.charAt(0) is '\\'
-				filePath = filePath.replace '\\', ''
-
-			# add trailing slash
-			if filePath.slice(-1) isnt '\\'
-				filePath += '\\'
-
-			# optional extention (file > file.etml)
-			if file.indexOf('.etml') is -1
-				file += '.etml'
-
-			# optional leading underscore (file.etml > _file.etml)
-			if file.charAt(0) isnt '_'
-				file = '_'+file
-
-			return self.globals.file.srcPath + filePath + file
-
-		# findImports()
-		# Searches a provided string for iimport calls and
-		# recursively retrives file contents
-		findImports = (str, _callback) ->
-
-			# handleImport()
-			# Made to be called from async.map() to asynchronously
-			# handle each import. Also checks imported file for
-			# further imports, and handles those as well
-			handleImport = (file, __callback) ->
-				url = file.prepareUrl()
-				importObj = {}
-
-				fs.readFile url, 'utf8', (err, contents) ->
-					if err then return __callback err, null
-
-					# search retreived file for further imports
-					findImports contents, (err, contents) ->
-						if err then return __callback err, null
-
-						importObj[file] = contents
-						return __callback null, importObj
-
-			# find imports
-			imports = []
-			urlRe = /@import\s?['"]([\w\.\/-]*)['"]/ig
-
-			while match = urlRe.exec(str)
-				imports.push match[1]
-
-			if imports.length
-
-				# no need for duplicates
-				imports = imports.removeDuplicates()
-
-				# asynchronously loop through imports
-				async.map imports, handleImport, (err, imports) ->
-					if err then return _callback err, null
-
-					for importObj in imports
-
-						for importKey of importObj
-
-							# make regex based on the import url
-							importRe = new RegExp '@import\\s?[\'"]' + importKey + '[\'"]', 'ig'
-
-							# replace any matching import in
-							# the original file with the file contents
-							str = str.replace importRe, importObj[importKey]
-
-					return _callback null, str
-
-			else return _callback null, str
-
-		# start finding imports
-		findImports contents, (err, contents) ->
-			if err then return callback err, null
-
-			return callback null, contents
 
 	# comments()
 	# Processes //line and /*block comments*/
@@ -162,6 +58,120 @@ module.exports =
 			contents = contents.replace '*/', '-->'
 
 		return contents
+
+	# imports()
+	# Processes @import calls
+	imports: (contents, callback) ->
+		self = this
+
+		# findImports()
+		# Searches a provided string for iimport calls and
+		# recursively retrives file contents
+		findImports = (str, srcPath, _callback) ->
+
+			# Array.removeDuplicates()
+			# Returns new array without duplicates from original
+			Array.prototype.removeDuplicates = ->
+				uniques = []
+
+				for item in this
+					if uniques.indexOf(item) is -1
+						uniques.push item
+
+				return uniques
+
+			# prepareUrl()
+			# Returns object for use with fs reading
+			prepareUrl = (file) ->
+				file = path.normalize file
+
+				# isolate url parts
+				filePath = path.dirname file
+				file = path.basename file
+
+				# remove leading slash
+				if filePath.charAt(0) is '\\'
+					filePath = filePath.replace '\\', ''
+
+				# add trailing slash
+				if filePath.slice(-1) isnt '\\'
+					filePath += '\\'
+
+				# optional extention (file > file.etml)
+				if file.indexOf('.etml') is -1
+					file += '.etml'
+
+				# optional leading underscore (file.etml > _file.etml)
+				if file.charAt(0) isnt '_'
+					file = '_'+file
+
+				res =
+					filePath: srcPath + filePath + file
+					# context for any additional imports
+					context: srcPath + filePath
+
+				return res
+
+			# handleImport()
+			# Made to be called from async.map() to asynchronously
+			# handle each import. Also checks imported file for
+			# further imports, and handles those as well
+			handleImport = (file, __callback) ->
+				url = prepareUrl file
+				importObj = {}
+
+				fs.readFile url.filePath, 'utf8', (err, contents) ->
+					if err then return __callback err, null
+
+					# escapes
+					contents = self.escapes contents
+
+					# comments
+					contents = self.comments contents
+
+					# search retreived file for further imports
+					findImports contents, url.context, (err, contents) ->
+						if err then return __callback err, null
+
+						importObj[file] = contents
+						return __callback null, importObj
+
+			# find imports
+			imports = []
+			urlRe = /@import\s?['"]([\w\.\/-]*)['"];/ig
+
+			while match = urlRe.exec(str)
+				imports.push match[1]
+
+			if imports.length
+
+				# no need for duplicates
+				imports = imports.removeDuplicates()
+
+				# asynchronously loop through imports
+				async.map imports, handleImport, (err, imports) ->
+					if err then return _callback err, null
+
+					for importObj in imports
+
+						for importKey of importObj
+
+							# make regex based on the import url
+							importRe = new RegExp '@import\\s?[\'"]' + importKey + '[\'"];', 'ig'
+
+							# replace any matching import in
+							# the original file with the file contents
+							str = str.replace importRe, importObj[importKey]
+
+					return _callback null, str
+
+			else return _callback null, str
+
+		# start finding imports
+		findImports contents, self.globals.file.srcPath, (err, contents) ->
+			if err then return callback err, null
+
+			return callback null, contents
 
 	# tags()
 	# Processes etml's built-in custom html tags
