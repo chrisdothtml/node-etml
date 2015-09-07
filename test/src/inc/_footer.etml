@@ -1,0 +1,23 @@
+<footer>
+
+	<div class="contain">
+
+		<div class="footer-links">
+			<ul>
+				<li><a href='index.html'>Home</a></li>
+				<li><a href='shirts.html'>Shirts</a></li>
+				<li><a href='shoes.html'>Shoes</a></li>
+				<li><a href='service.html'>Service</a></li>
+			</ul>
+		</div>
+
+		<span>Copyright &copy; 2015 etml</span>
+	</div>
+</footer>
+
+// External Scripts
+<js url="font-awesome.min.js" />
+<js url="owl-carousel.min.js" />
+
+// Custom Scripts
+<js url="core.min.js" />

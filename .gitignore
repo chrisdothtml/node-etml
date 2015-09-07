@@ -45,3 +45,4 @@ Temporary Items
 # General
 node_modules/
 .sublime-grunt.cache
+test-exp/

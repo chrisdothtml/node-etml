@@ -1,0 +1,22 @@
+<title>ETML: Enhanced Text Markup Language</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+
+// External Styles
+<css id="fa" url="font-awesome.min.css" />
+<css url="owl-carousel.min.css" />
+
+// Custom Styles
+<css url="core.min.css" />
+
+// HTML5 Tags
+<!--[if lt IE 9]>
+	<script>
+		document.createElement('header');
+		document.createElement('nav');
+		document.createElement('main');
+		document.createElement('section');
+		document.createElement('footer');
+		document.createElement('button');
+	</script>
+<![endif]-->
