@@ -39,34 +39,20 @@ Syntax
 
 Much like the idea behind etml, the syntax was also inspired by [SCSS](http://sass-lang.com/documentation/file.SCSS_FOR_SASS_USERS.html).
 
-### Built-in Tags
+### Short Tags
 
-etml comes with some custom tags that are shortcuts for other tags. These are optional, and are only there to either shorten the code, or make it more readable.
-
-`<js>` and `<css>`
+etml comes with some custom tags that are shortcuts for other tags. These are optional, but can make code more readable. In addition, all short tags will honor any additional attributes you have on them.
 
 ````
-<css url="core.css">
+<css id="ie-css" url="core.css">
 <js url="core.js">
 ````
 
 compiles to
 
 ````
-<link rel="stylesheet" type="text/css" href="core.css" />
-<script type="text/javascript" src="core.js"></script>
-````
-
-All custom tags will honor any additional attributes you have on them. For example:
-
-````
-<css id="ie-css" url="core.css">
-````
-
-compiles to
-
-````
 <link id="ie-css" rel="stylesheet" type="text/css" href="core.css" />
+<script type="text/javascript" src="core.js"></script>
 ````
 
 ### Custom Tags
@@ -75,7 +61,7 @@ In addition to the built-in tags, you are able to make your own custom tags with
 
 ### Comments
 
-One of my biggest gripes with HTML is the comments. They don't look very good, and you can't just quickly add them in. In etml, inline and block comments can be used.
+One of my biggest gripes with HTML is the comments. They don't look very good, and you can't just quickly add them in. In etml, inline and block comments are supported. You can still use regular html comments if you want.
 
 ````
 <button>Submit</button>//Submit btn
@@ -87,12 +73,29 @@ One of my biggest gripes with HTML is the comments. They don't look very good, a
 <marquee>Welcome to my site</marquee>
 <blink>I hope you like it</blink>
 */
+
+<!-- Business as usual -->
+````
+
+compiles to
+
+````
+<button>Submit</button>
+
+<strong>Bold Text</strong>
+
+<!-- Removing nonsense
+<marquee>Welcome to my site</marquee>
+<blink>I hope you like it</blink>
+-->
+
+<!-- Business as usual -->
 ````
 
 ### Variables
 
 ````
-$contain = ''
+$variable = '';
 ````
 
 ### File Imports
@@ -103,43 +106,40 @@ Files that are imported to etml must use the `_file.etml` format. Files in this 
 <!DOCTYPE html>
 <html>
 <head>
-	@import 'inc/_global-head.etml'
+	@import 'inc/_global-head.etml';
 </head>
 <body>
-
-</body>
-</html>
+...
 ````
 
 Providing the leading underscore and file extension are optional in file imports, but the actual file still needs them.
 
 ````
-@import 'inc/_file.etml'
-@import 'inc/file.etml'
-@import 'inc/file'
+@import 'inc/_file.etml';
+@import 'inc/file.etml';
+@import 'inc/file';
 ````
 
 File imports are recursive, so you are able to import files within other imported files.
 
 ### Escaping
 
-In some instances, you may need to escape things so they don't get picked up by the compiler. For instance:
+If you need to escape a statement in etml, it's as simple as putting a `\` in front of it. Example:
 
 ````
-<span><strong>FREE SHIPPING //</strong> on orders over $200</span>
+\$variable: 'value';
+\@import 'file';
+\// Not a comment
+\/* Also not a comment */
 ````
 
-The right portion of that line would be commented out because of etml line comments. If you ever need to escape anything from the compiler, just wrap it like this:
+outputs:
 
 ````
-<span><strong>FREE SHIPPING #{//}</strong> on orders over $200</span>
-````
-
-NOTE: it's best to escape only when necessary as the compiler decodes every character inside to html entities. Another example:
-
-````
-// escaping the `@` is enough to stop it from being picked up from the compiler
-<span>Import files by using #{@}import 'file.etml'</span>
+$variable: 'value';
+@import 'file';
+// Not a comment
+/* Also not a comment */
 ````
 
 node-etml Development
@@ -162,10 +162,14 @@ etml comes with an option to use [better-fs-errors](https://github.com/chrisdoth
 - [cheerio](https://github.com/cheeriojs/cheerio)
 - [errno](https://github.com/rvagg/node-errno)
 - [JS Beautifier](https://github.com/beautify-web/js-beautify)
-- [he](https://github.com/mathiasbynens/he)
 
 ### Special Thanks
 
 - [bebraw](https://github.com/bebraw) for [mocss](https://github.com/bebraw/mocss) and his [blog post](http://www.nixtu.info/2011/12/how-to-write-css-preprocessor-using.html).
 - [ionutvmi](https://github.com/ionutvmi) for [sublime-html](https://github.com/ionutvmi/sublime-html)
 - [workshopper](https://github.com/workshopper) for [learnyounode](https://github.com/workshopper/learnyounode)
+
+Text Editor Syntax Highlighting
+===
+
+I am currently working on a package for Sublime, but I'm open to any syntax highlighting help.
