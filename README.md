@@ -6,6 +6,8 @@ etml is a NodeJS-built HTML enhancer. It was inspired by the way that [SCSS](htt
 
 I built this processor out of my own necessity, and I personally use it on most of my projects. It's the perfect tool for me, but if it's not for you, feel free to [create an issue](https://github.com/chrisdothtml/node-etml/issues) and I'll be happy to consider any changes or additions.
 
+**NOTE: I am somewhat new to the Node/npm community, and this is only my second published module. I am open to any collaborators who'd like to help with this project in any way (whether it be maintaining or offering better code solutions).**
+
 Installation
 ===
 
