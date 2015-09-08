@@ -166,16 +166,8 @@ etml comes with an option to use [better-fs-errors](https://github.com/chrisdoth
 - [async](https://github.com/caolan/async)
 - [better-fs-errors](https://github.com/chrisdothtml/better-fs-errors)
 - [cheerio](https://github.com/cheeriojs/cheerio)
-- [errno](https://github.com/rvagg/node-errno)
 - [JS Beautifier](https://github.com/beautify-web/js-beautify)
 
-### Special Thanks
-
-- [bebraw](https://github.com/bebraw) for [mocss](https://github.com/bebraw/mocss) and his [blog post](http://www.nixtu.info/2011/12/how-to-write-css-preprocessor-using.html).
-- [ionutvmi](https://github.com/ionutvmi) for [sublime-html](https://github.com/ionutvmi/sublime-html)
-- [workshopper](https://github.com/workshopper) for [learnyounode](https://github.com/workshopper/learnyounode)
-
-Text Editor Syntax Highlighting
-===
+### Text Editor Syntax Highlighting
 
 I am currently working on a package for Sublime, but am open to any syntax highlighting help.
