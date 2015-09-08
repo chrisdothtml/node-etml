@@ -34,11 +34,11 @@ module.exports = (srcFilePath, destPath, options, handleErr) ->
 				destPath: destPath
 				destFile: destFile
 
+		# escapes
+		contents = process.escapes contents
+
 		# comments
 		contents = process.comments contents
-
-		# variables
-		contents = process.variables contents
 
 		# imports
 		process.imports contents, (err, contents) ->

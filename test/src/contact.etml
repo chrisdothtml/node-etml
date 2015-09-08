@@ -1,16 +1,13 @@
 // File: contact.etml
 // Description: Page to contact us
-$awesome-person: 'Chris';
 <html lang='en'>
 	<head>@import 'inc/head';</head>
 	<body>
-	\$awesome-person: 'Not Chris :(';
-		\@import 'inc/header';
+	
+		@import 'inc/header';
 
 		<main>
-		\//	<h1>Contact\// Us \//</h1>// This comment, however,\/\/\/\//\////\\//\\\\//\\/\/\\/\/ is not escaped. \// Sorry about this one, it's not escaped
-
-			<h2>${awesome-person} is a really awesome person.</h2>
+			<h1>Contact Us #{//}</h1>
 
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum sit amet nunc et mattis. Sed nec nibh lectus. Pellentesque rutrum, lorem at aliquam pellentesque, nunc nibh pellentesque diam, ac aliquam sapien felis in nibh. Praesent vulputate et tellus et feugiat. Maecenas suscipit hendrerit ex ac efficitur. In varius ipsum at varius rutrum. Sed finibus gravida eleifend.</p>
 		</main>

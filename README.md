@@ -37,7 +37,7 @@ etml('path/to/src/', 'path/to/dest/', options);
 Syntax
 ===
 
-Much like the idea behind etml, the syntax was also inspired by [SCSS](http://sass-lang.com/documentation/file.SCSS_FOR_SASS_USERS.html) (with a hint of Javascript).
+Much like the idea behind etml, the syntax was also inspired by [SCSS](http://sass-lang.com/documentation/file.SCSS_FOR_SASS_USERS.html).
 
 ---
 
@@ -123,6 +123,8 @@ Providing the leading underscore and file extension are optional in file imports
 @import 'inc/file.etml';
 @import 'inc/file';
 ````
+
+File imports are recursive, so you are able to import files within other imported files.
 
 ---
 
