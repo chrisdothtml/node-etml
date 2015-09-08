@@ -41,7 +41,7 @@ Much like the idea behind etml, the syntax was also inspired by [SCSS](http://sa
 
 ### Short Tags
 
-etml comes with some custom tags that are shortcuts for other tags. These are optional, but can make code more readable. In addition, all short tags will honor any additional attributes you have on them.
+etml comes with some custom tags that are shortcuts for other tags. These are optional, but can make code more readable. Also, all short tags will honor any additional attributes you have on them.
 
 ````
 <css id="ie-css" url="core.css">
@@ -54,10 +54,6 @@ compiles to
 <link id="ie-css" rel="stylesheet" type="text/css" href="core.css" />
 <script type="text/javascript" src="core.js"></script>
 ````
-
-### Custom Tags
-
-In addition to the built-in tags, you are able to make your own custom tags with etml.
 
 ### Comments
 
