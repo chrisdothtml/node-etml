@@ -8,54 +8,110 @@
 async = require 'async'
 cheerio = require 'cheerio'
 fs = require 'fs'
-he = require 'he'
 path = require 'path'
+
+# Array.removeDuplicates()
+# Returns new array without duplicates from original
+Array.prototype.removeDuplicates = ->
+	uniques = []
+
+	for item in this
+		if uniques.indexOf(item) is -1
+			uniques.push item
+
+	return uniques
+
+# String.isEscaped()
+# Checks a string to see if it has a '\' at the beginning
+String.prototype.isEscaped = ->
+	return this.charAt(0) isnt '\\'
 
 module.exports =
 	globals: {}
-
-	# escapes()
-	# Processes character escapes #{}
-	escapes: (contents) ->
-		self = this
-
-		re = /#{([^#{}]*)}/g
-		return contents.replace re, he.encode('$1', {'encodeEverything': true})
 
 	# comments()
 	# Processes //line and /*block comments*/
 	comments: (contents) ->
 		self = this
 
-		# inline comments
 		lines = contents.split '\n'
 
+		# inline comments
 		contents = lines.map (line) ->
 
-			if line.indexOf('//') > -1
-				parts = line.split '//'
+			inlineRe = /\\?\/\//g
+			while match = inlineRe.exec(line)
 
-				# remove if nothing before comment
-				if not parts[0].trim() then return false
+				if not match[0].isEscaped()
 
-				# leave only what's before the comment
-				return parts[0]
+					console.log match
+
+					# So line doesn't get split at escaped slashes
+					line = line.replace('\\//', '\\/#/#')
+
+					parts = line.split '//'
+
+					# remove if nothing before comment
+					if not parts[0].trim() then return false
+
+					# leave only what's before the comment
+					line = parts[0].replace('\\/#/#', '\\//')
+
+			while match = inlineRe.exec(line)
+
+				console.log match
+
+				if match[0].isEscaped()
+					line = line.replace '\\//', '//'
 
 			return line
 
-		# remove commented or empty lines
+		# remove commented lines
 		.filter (line) ->
+			return line
+
+		# block comments
+		.map (line) ->
+
+			#blockStartRe = /\\?\/\*/
+			#startMatch = line.match blockStartRe
+
+			#if startMatch
+			#	if startMatch[0].notEscaped()
+			#		line = line.replace '/*', '<!--'
+
+			#blockEndRe = /\\?\*\//
+			#endMatch = line.match blockEndRe
+
+			#if endMatch
+			#	if endMatch[0].notEscaped()
+			#		line = line.replace '*/', '-->'
+
 			return line
 
 		# rejoin lines
 		.join '\n'
 
-		# block comments
-		if contents.indexOf('/*') > -1
-			contents = contents.replace '/*', '<!--'
+		return contents
 
-		if contents.indexOf('*/') > -1
-			contents = contents.replace '*/', '-->'
+	# variables()
+	# Processes $variables and replaces ${variable} calls
+	variables: (contents) ->
+		self = this
+
+		# find variables
+		vars = {}
+		varRe = /\\?\$([\w-]+):\s?['"]([^'"]+)['"];/ig
+
+		while match = varRe.exec(contents)
+			if not match[0].isEscaped()
+				vars[match[1]] = match[2]
+
+		###if Object.keys(vars).length
+			# no need for duplicates
+			#vars = vars.removeDuplicates()
+
+			console.log vars###
 
 		return contents
 
@@ -68,17 +124,6 @@ module.exports =
 		# Searches a provided string for iimport calls and
 		# recursively retrives file contents
 		findImports = (str, srcPath, _callback) ->
-
-			# Array.removeDuplicates()
-			# Returns new array without duplicates from original
-			Array.prototype.removeDuplicates = ->
-				uniques = []
-
-				for item in this
-					if uniques.indexOf(item) is -1
-						uniques.push item
-
-				return uniques
 
 			# prepareUrl()
 			# Returns object for use with fs reading
@@ -138,13 +183,12 @@ module.exports =
 
 			# find imports
 			imports = []
-			urlRe = /@import\s?['"]([\w\.\/-]*)['"];/ig
+			urlRe = /@import\s?['"]([\w\.\/-]+)['"];/ig
 
 			while match = urlRe.exec(str)
 				imports.push match[1]
 
 			if imports.length
-
 				# no need for duplicates
 				imports = imports.removeDuplicates()
 
