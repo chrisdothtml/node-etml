@@ -47,3 +47,4 @@ node_modules/
 .sublime-grunt.cache
 test-exp/
 syntax/
+*.not-coffee
