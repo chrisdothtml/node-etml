@@ -176,4 +176,4 @@ etml comes with an option to use [better-fs-errors](https://github.com/chrisdoth
 Text Editor Syntax Highlighting
 ===
 
-I am currently working on a package for Sublime, but I'm open to any syntax highlighting help.
+I am currently working on a package for Sublime, but am open to any syntax highlighting help.
