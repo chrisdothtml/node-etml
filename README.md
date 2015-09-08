@@ -39,6 +39,8 @@ Syntax
 
 Much like the idea behind etml, the syntax was also inspired by [SCSS](http://sass-lang.com/documentation/file.SCSS_FOR_SASS_USERS.html).
 
+---
+
 ### Short Tags
 
 etml comes with some custom tags that are shortcuts for other tags. These are optional, but can make code more readable. Also, all short tags will honor any additional attributes you have on them.
@@ -54,6 +56,8 @@ compiles to
 <link id="ie-css" rel="stylesheet" type="text/css" href="core.css" />
 <script type="text/javascript" src="core.js"></script>
 ````
+
+---
 
 ### Comments
 
@@ -88,11 +92,15 @@ compiles to
 <!-- Business as usual -->
 ````
 
+---
+
 ### Variables
 
 ````
 $variable = '';
 ````
+
+---
 
 ### File Imports
 
@@ -117,6 +125,8 @@ Providing the leading underscore and file extension are optional in file imports
 ````
 
 File imports are recursive, so you are able to import files within other imported files.
+
+---
 
 ### Escaping
 
