@@ -24,7 +24,7 @@ Array.prototype.removeDuplicates = ->
 # String.isEscaped()
 # Checks a string to see if it has a '\' at the beginning
 String.prototype.isEscaped = ->
-	return this.charAt(0) isnt '\\'
+	return this.substring(0,1) is '\\'
 
 module.exports =
 	globals: {}
@@ -34,63 +34,26 @@ module.exports =
 	comments: (contents) ->
 		self = this
 
-		lines = contents.split '\n'
+		lineRe = /[^:"'](\/\/[^\n]*)/g
 
-		# inline comments
-		contents = lines.map (line) ->
+		handleLineComment = (str) ->
 
-			inlineRe = /\\?\/\//g
-			while match = inlineRe.exec(line)
+			return str.replace lineRe, (orig, match) ->
 
-				if not match[0].isEscaped()
+				if orig.isEscaped()
+					orig = orig.replace '\\', ''
+					return handleLineComment orig
 
-					console.log match
+				else
+					return orig.replace match, ''
 
-					# So line doesn't get split at escaped slashes
-					line = line.replace('\\//', '\\/#/#')
 
-					parts = line.split '//'
+		# if the first line is a comment, this
+		# allows the comment regex to pick it up
+		if contents.substring(0,2) is '//'
+			contents = contents.replace '//', '\n//'
 
-					# remove if nothing before comment
-					if not parts[0].trim() then return false
-
-					# leave only what's before the comment
-					line = parts[0].replace('\\/#/#', '\\//')
-
-			while match = inlineRe.exec(line)
-
-				console.log match
-
-				if match[0].isEscaped()
-					line = line.replace '\\//', '//'
-
-			return line
-
-		# remove commented lines
-		.filter (line) ->
-			return line
-
-		# block comments
-		.map (line) ->
-
-			#blockStartRe = /\\?\/\*/
-			#startMatch = line.match blockStartRe
-
-			#if startMatch
-			#	if startMatch[0].notEscaped()
-			#		line = line.replace '/*', '<!--'
-
-			#blockEndRe = /\\?\*\//
-			#endMatch = line.match blockEndRe
-
-			#if endMatch
-			#	if endMatch[0].notEscaped()
-			#		line = line.replace '*/', '-->'
-
-			return line
-
-		# rejoin lines
-		.join '\n'
+		contents = handleLineComment contents
 
 		return contents
 
@@ -169,10 +132,10 @@ module.exports =
 					if err then return __callback err, null
 
 					# escapes
-					contents = self.escapes contents
+					#contents = self.escapes contents
 
 					# comments
-					contents = self.comments contents
+					#contents = self.comments contents
 
 					# search retreived file for further imports
 					findImports contents, url.context, (err, contents) ->

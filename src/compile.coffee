@@ -59,4 +59,4 @@ module.exports = (srcFilePath, destPath, options, handleErr) ->
 
 					end = new Date()
 
-					return console.log 'Compiled '+destFile+' in ' + (end.getTime() - start.getTime()) + 'ms'
+					return console.log 'Compiled ' + destFile + ' in ' + (end.getTime() - start.getTime()) + 'ms'
