@@ -1,3 +1,6 @@
 // File: contact.etml
 // Description: Page to contact us
-\//	<h1>Contact\// Us \//</h1>// This comment, however,\/\/\/\//\////\\//\\\\//\\/\/\\/\/ is not escaped. \// Sorry about this one, it's not escaped
+
+\//	<h1>Contact\// Us \//</h1>// This comment, however,\//\////\\//\\\\//\\/\/\\/\/ is not escaped. \// Sorry about this one, it's not escaped
+
+\\\//Hey//Hi

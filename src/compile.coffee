@@ -1,17 +1,17 @@
 ###
  * File: compile
- * Description: Handles file io and facilitates process methods.
+ * Description: Handles file i/o and facilitates process methods.
 ###
 
 'use strict'
 
 # external modules
+beautify = require('js-beautify').html
 fs = require 'fs'
 path = require 'path'
-beautify = require('js-beautify').html
 
 # etml modules
-process = require('./process')
+tokenize = require('./tokenize')
 
 module.exports = (srcFilePath, destPath, options, handleErr) ->
 
@@ -34,29 +34,24 @@ module.exports = (srcFilePath, destPath, options, handleErr) ->
 				destPath: destPath
 				destFile: destFile
 
-		# comments
-		contents = process.comments contents
+		# tokenize contents
+		tokens = tokenize contents, '', globals.options
 
-		# variables
-		contents = process.variables contents
+		console.log tokens
 
-		# imports
-		process.imports contents, (err, contents) ->
+		# handle tokens
+		###handle tokens (err, contents) ->
 			if err then return handleErr err
+				
+			# beautify contents before writing to file
+			output = beautify contents,
+				globals.options.indent_level
+				globals.options.indent_with_tabs
+				globals.options.unescape_strings
 
-			# tags
-			process.tags contents, (err, contents) ->
+			fs.writeFile destPath + destFile, contents, (err) ->
 				if err then return handleErr err
-					
-				# beautify output before sending back
-				contents = beautify contents,
-					indent_level: 1,
-					indent_with_tabs: true,
-					unescape_strings: true
 
-				fs.writeFile destPath + destFile, contents, (err) ->
-					if err then return handleErr err
+				end = new Date()
 
-					end = new Date()
-
-					return console.log 'Compiled ' + destFile + ' in ' + (end.getTime() - start.getTime()) + 'ms'
+				return console.log 'Compiled ' + destFile + ' in ' + (end.getTime() - start.getTime()) + 'ms'###

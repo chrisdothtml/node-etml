@@ -19,8 +19,14 @@ module.exports = (src, dest, options) ->
 	dest = path.normalize dest
 
 	# setup options
-	options: defaults options.etml,
+	options: defaults options,
+		# etml defaults
+		warnings: true
 		useBfe: false
+		# JS Beautify defaults
+		indent_level: 1,
+		indent_with_tabs: true,
+		unescape_strings: true
 
 	handleErr = (err) ->
 		if options.useBfe

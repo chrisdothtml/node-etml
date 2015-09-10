@@ -1,20 +1,32 @@
-// File: contact.etml
-// Description: Page to contact us
-$awesome-person: 'Chris';
-<html lang='en'>
-	<head>@import 'inc/head';</head>
+// General Variables
+$name: 'Chris';
+$this: 'etml';
+
+// Site Variables
+$site-title: 'Awesome Website';
+$site-desc: 'A wonderful website built using {$this}';
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<site title="{$site-title}" responsive="true" description="{$site-desc}" />
+
+		// Vendor Styles
+		<css id="vendor-css" url="vendor.min.css" />
+
+		// Site Styles
+		<css url="core.min.css" />
+	</head>
 	<body>
-	\$awesome-person: 'Not Chris :(';
-		\@import 'inc/header';
 
-		<main>
-		\//	<h1>Contact\// Us \//</h1>// This comment, however,\/\/\/\//\////\\//\\\\//\\/\/\\/\/ is not escaped. \// Sorry about this one, it's not escaped
+		@include 'inc/_header.etml';
 
-			<h2>${awesome-person} is a really awesome person.</h2>
+		<h1>Hi, {$name}! Meet {$this}.</h1>
 
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum sit amet nunc et mattis. Sed nec nibh lectus. Pellentesque rutrum, lorem at aliquam pellentesque, nunc nibh pellentesque diam, ac aliquam sapien felis in nibh. Praesent vulputate et tellus et feugiat. Maecenas suscipit hendrerit ex ac efficitur. In varius ipsum at varius rutrum. Sed finibus gravida eleifend.</p>
-		</main>
+		// Vendor Scripts
+		<js url="vendor.min.js" />
 
-		@import 'inc/footer';
+		// Site Scripts
+		<js url="core.min.js" />
 	</body>
 </html>
