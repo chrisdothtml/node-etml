@@ -100,6 +100,7 @@ compiles to
 
 ````
 $variable = '';
+{$variable}
 ````
 
 ---
@@ -112,7 +113,7 @@ Files that are imported to etml must use the `_file.etml` format. Files in this 
 <!DOCTYPE html>
 <html>
 <head>
-	@import 'inc/_global-head.etml';
+	@include 'inc/_global-head.etml';
 </head>
 <body>
 ...
@@ -121,29 +122,29 @@ Files that are imported to etml must use the `_file.etml` format. Files in this 
 Providing the leading underscore and file extension are optional in file imports, but the actual file still needs them.
 
 ````
-@import 'inc/_file.etml';
-@import 'inc/file.etml';
-@import 'inc/file';
+@include 'inc/_file.etml';
+@include 'inc/file.etml';
+@include 'inc/file';
 ````
-
 ---
 
 ### Escaping
 
-If you need to escape a statement in etml, it's as simple as putting a `\` in front of it. Example:
+If you need to escape an expression in etml, it's as simple as putting a `\` in front of it. Example:
 
 ````
 \$variable: 'value';
-\@import 'file';
+\{$variable}
+\@include 'file';
 \// Not a comment
-\/* Also not a comment */
+\/* Also not a comment \*/
 ````
 
 outputs:
 
 ````
 $variable: 'value';
-@import 'file';
+@include 'file';
 // Not a comment
 /* Also not a comment */
 ````
