@@ -10,18 +10,28 @@ TOKEN TYPES/STRUCTURE
 text
 	val: String
 comment
-	escaped: Boolean
-	type: String (line, startBlock, endBlock)
+	type: String (startBlock, endBlock)
 include
-	escaped: Boolean
 	url: String
 variable
-	escaped: Boolean
 	action: String (define, call)
 	name: String
 	value: String
 	scope: String (global, filename)
 eos
+###
+
+###
+TODO
+
+-built-in tags
+-line numbers
+-standardize warnings/errors
+	-possibly merge warnings into errors
+-work out feature disabling (comments: false)
+-variable scope
+-figure out how to maybe have token children (variable calls within variable definitions, etc)
+	-possibly just add a check to each that apply and make format for children
 ###
 
 'use strict'
@@ -130,158 +140,104 @@ Tokenizer.prototype =
 	comment: ->
 
 		# inline
-		# ===
+		if captures = /^(\\?\/\/).*/.exec @input
 
-		# \//
-		# escaped
-		if captures = /^\\\/\//.exec @input
-			@consume captures[0].length
-			@tokens.push @token 'comment',
-				escaped: true
-				type: 'line'
-			return true
+			if captures[0].substring(0,1) is '\\'
+				@consume captures[1].length
+				@tokens.push @token 'test',
+					value: captures[1].substr 1
+			else
+				@consume captures[0].length
 
-		# //
-		# not escaped
-		if captures = /^\/\/.*/.exec @input
-			@consume captures[0].length
-			@tokens.push @token 'comment',
-				escaped: false
-				type: 'line'
 			return true
 
 		# block start
-		# ===
+		if captures = /^\\?\/\*/.exec @input
 
-		# \/*
-		# escaped
-		if captures = /^\\\/\*/.exec @input
-			@consume captures[0].length
-			@tokens.push @token 'comment',
-				escaped: true
-				type: 'blockStart'
-			return true
+			if captures[0].substring(0,1) is '\\'
+				@tokens.push @token 'text',
+					value: captures[0].substr 1
+			else
+				@tokens.push @token 'comment',
+					type: 'blockStart'
 
-		# /*
-		# not escaped
-		if captures = /^\/\*/.exec @input
 			@consume captures[0].length
-			@tokens.push @token 'comment',
-				escaped: false
-				type: 'blockStart'
 			return true
 
 		# block end
-		# ===
+		if captures = /^\\?\*\//.exec @input
 
-		# \*/
-		# escaped
-		if captures = /^\\\*\//.exec @input
-			@consume captures[0].length
-			@tokens.push @token 'comment',
-				escaped: true
-				type: 'blockEnd'
-			return true
+			if captures[0].substring(0,1) is '\\'
+				@tokens.push @token 'text',
+					value: captures[0].substr 1
+			else
+				@tokens.push @token 'comment',
+					type: 'blockEnd'
 
-		# */
-		# not escaped
-		if captures = /^\*\//.exec @input
 			@consume captures[0].length
-			@tokens.push @token 'comment',
-				escaped: false
-				type: 'blockEnd'
 			return true
 
 	# include()
 	# File includes
 	include: ->
+		if captures = /^\\?@include ?['"]([\w\.\/-]*)['"];?/.exec @input
 
-		# \@include '';
-		# escaped
-		if captures = /^\\@include ?['"]([\w\.\/-]*)['"];/.exec @input
-			@consume captures[0].length
-			@tokens.push @token 'include',
-				escaped: true
-				url: captures[1]
-			return true
-
-		# @include '';
-		# not escaped
-		if captures = /^@include ?['"]([\w\.\/-]*)['"];?/.exec @input
-			@matches captures[0]
-
-			if captures[0].substr(-1) is ';'
-				@tokens.push @token 'include',
-					escaped: false
-					url: captures[1]
-
-			else
-				@warn 'Missing semicolon ; for @include'
+			if captures[0].substring(0,1) is '\\'
 				@tokens.push @token 'text',
-					value: captures[0]
-			
+					value: captures[0].substr 1
+			else
+
+				if captures[0].substr(-1) is ';'
+					@matches captures[0]
+					@tokens.push @token 'include',
+						url: captures[1]
+				else
+					@warn 'Missing semicolon ; for @include'
+					@tokens.push @token 'text',
+						value: captures[0]
+				
 			@consume captures[0].length
 			return true
 
 	# variableDefine()
 	# Variable definitions
 	variableDefine: ->
+		if captures = /^\\?\$([\w-]+): ?['"]([^'";]*)['"]?;?/.exec @input
 
-		# \$variable: '';
-		# escaped
-		if captures = /^\\\$([\w-]+): ?['"]([^'"]*)['"];/.exec @input
-			@consume captures[0].length
-			@tokens.push @token 'variable',
-				escaped: true
-				action: 'define'
-				name: captures[1]
-				value: captures[2]
-			return true
-
-		# $variable: '';
-		# not escaped
-		if captures = /^\$([\w-]+): ?['"]([^'"]*)['"];?/.exec @input
-			@matches captures[0]
-
-			if captures[0].substr(-1) is ';'
-				@tokens.push @token 'variable',
-					escaped: false
-					action: 'define'
-					name: captures[1]
-					value: captures[2]
-
-			else
-				@warn 'Missing semicolon ; for variable definition'
+			if captures[0].substring(0,1) is '\\'
 				@tokens.push @token 'text',
-					value: captures[0]
-			
+					value: captures[0].substr 1
+			else
+				
+				if captures[0].substr(-1) is ';'
+					@matches captures[0]
+					@tokens.push @token 'variable',
+						action: 'define'
+						name: captures[1]
+						value: captures[2]
+				else
+					@warn 'Missing semicolon ; for variable definition'
+					@tokens.push @token 'text',
+						value: captures[0]
+
 			@consume captures[0].length
 			return true
 
 	# variableCall()
 	# Variable calls
 	variableCall: ->
+		if captures = /^\\?\{ ?\$([\w-]+) ?\}?/.exec @input
 
-		# \{$variable}
-		# escaped
-		if captures = /^\\\{ ?\$([\w-]+) ?\}/.exec @input
-			@consume captures[0].length
-			@tokens.push @token 'variable',
-				escaped: true
-				action: 'call'
-				name: captures[1]
-			return true
-
-		# {$variable}
-		# not escaped
-		if captures = /^\{ ?\$([\w-]+) ?\}?/.exec @input
-			@matches captures[0]
+			if captures[0].substring(0,1) is '\\'
+				@tokens.push @token 'text',
+					value: captures[0].substr 1
+			else
+				@matches captures[0]
+				@tokens.push @token 'variable',
+					action: 'call'
+					name: captures[1]
 
 			@consume captures[0].length
-			@tokens.push @token 'variable',
-				escaped: false
-				action: 'call'
-				name: captures[1]
 			return true
 
 	# text()
