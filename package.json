@@ -1,13 +1,17 @@
 {
   "name": "node-etml",
-  "description": "A node-built enhancement of HTML",
-  "version": "0.0.6",
+  "description": "A preprocessor that enhances HTML",
+  "version": "1.0.0",
   "author": "Chris Deacy <chris@deacy.io> (http://deacy.io)",
   "homepage": "http://etml.io",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://chrisdothtml@github.com/chrisdothtml/node-etml.git"
+    "url": "https://github.com/chrisdothtml/node-etml.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chrisdothtml/etml-api/issues",
+    "email" "chris@deacy.io"
   },
   "keywords": [
     "enhanced",
@@ -22,7 +26,6 @@
   "dependencies": {
     "async": "^1.4.2",
     "better-fs-errors": "^1.0.0",
-    "cheerio": "^0.19.0",
     "defaults": "^1.0.2",
     "js-beautify": "^1.5.10"
   },
