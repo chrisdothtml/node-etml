@@ -34,3 +34,8 @@ etml.process('path/to/src/', 'path/to/dest/', options);
 
 ## Options
 
+#### bfe
+Type: `Boolean`
+Default value: `false`
+
+When this is set to `true`, it will use [better-fs-errors](https://github.com/chrisdothtml/better-fs-errors) for its filesystem error reporting.
