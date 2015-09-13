@@ -1,17 +1,17 @@
 node-etml
 ===
 
-This is a module that allows for etml usage within node. For etml docs, please visit the [API repo](https://github.com/chrisdothtml/etml-api).
+> A preprocessor that enhances HTML
 
-Installation
-===
+This is a module that allows for etml usage within node. For etml docs, please visit the [API repo](https://github.com/chrisdothtml/etml-api). To report an issue/suggestion, please do it [here](https://github.com/chrisdothtml/etml-api/issues).
+
+## Installation
 
 ```
 npm install node-etml
 ```
 
-Usage
-===
+## Usage
 
 Including the module
 
@@ -32,6 +32,5 @@ etml.process('path/to/src/file.etml', 'path/to/dest/', options);
 etml.process('path/to/src/', 'path/to/dest/', options);
 ```
 
-Options
-===
+## Options
 
