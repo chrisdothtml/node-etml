@@ -11,7 +11,7 @@
   },
   "bugs": {
     "url": "https://github.com/chrisdothtml/etml-api/issues",
-    "email" "chris@deacy.io"
+    "email": "chris@deacy.io"
   },
   "keywords": [
     "enhanced",
@@ -20,14 +20,10 @@
     "language",
     "html",
     "preprocessor",
-    "node",
-    "npm"
+    "node"
   ],
   "dependencies": {
-    "async": "^1.4.2",
-    "better-fs-errors": "^1.0.0",
-    "defaults": "^1.0.2",
-    "js-beautify": "^1.5.10"
+    "etml-api": "../etml-api"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
