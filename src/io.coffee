@@ -57,7 +57,7 @@ module.exports = (src, dest, options, handleErr) ->
 					fs.writeFile file.dest, output, (err) ->
 						if err then return handleErr err
 
-						return console.log 'Compiled ' + file.src + ' successfully.'
+						return console.log "Compiled #{file.src} successfully."
 						callback null
 
 	src = path.normalize src
