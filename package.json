@@ -23,6 +23,7 @@
     "node"
   ],
   "dependencies": {
+    "async": "^1.4.2",
     "etml-api": "../etml-api"
   },
   "devDependencies": {
