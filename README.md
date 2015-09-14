@@ -23,19 +23,19 @@ Running etml
 
 ```js
 // to compile etml on the fly (returns with HTML string)
-etml.compile(src, options);
+etml.src(src, options);
 
 // to compile one file
-etml.process('path/to/src/file.etml', 'path/to/dest/', options);
+etml.file('path/to/src/file.etml', 'path/to/dest/', options);
 
 // to compile all .etml files in a directory
-etml.process('path/to/src/', 'path/to/dest/', options);
+etml.file('path/to/src/', 'path/to/dest/', options);
 ```
 
 ## Options
 
 #### bfe
 Type: `Boolean`
-Default value: `false`
+Default value: `true`
 
 When this is set to `true`, it will use [better-fs-errors](https://github.com/chrisdothtml/better-fs-errors) for its filesystem error reporting.
