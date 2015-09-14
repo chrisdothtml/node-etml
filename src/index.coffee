@@ -1,69 +1,38 @@
 ###
  * File: index
- * Description: Handles source and destination and sends files to compiler.
+ * Description: Handles user input.
 ###
 
 'use strict'
 
 # external modules
 bfe = require 'better-fs-errors'
-defaults = require 'defaults'
-fs = require 'fs'
-path = require 'path'
 
 # etml modules
-compile = require './compile'
+etmlapi = require 'etml-api'
+io = require './io'
 
-module.exports = (src, dest, options) ->
-	src = path.normalize src
-	dest = path.normalize dest
+module.exports =
 
-	# setup options
-	options: defaults options,
-		# etml defaults
-		warnings: true
-		useBfe: false
-		# JS Beautify defaults
-		indent_level: 1,
-		indent_with_tabs: true,
-		unescape_strings: true
+	###
+	 * src()
+	 * Used for sending a block of etml through the compiler
+	###
+	src: (src, options) ->
+		file = {contents: src}
+		return etmlapi.compile file, options
 
-	handleErr = (err) ->
-		if options.useBfe
+	###
+	 * file()
+	 * Used for sending a file or directory of files through
+	 * the compiler
+	###
+	file: (src, dest, options) ->
+
+		handleErr = (err) ->
+			if options.bfe?
+				if options.bfe is false
+					throw err
 			throw bfe err
-		throw err
 
-	canCompile = (filename) ->
-		return path.extname(filename) is '.etml' and filename.charAt(0) isnt '_'
-
-	# check if dest is a file
-	if path.extname(dest)
-		handleErr 'Provided destination is not a directory'
-
-	# add trailing slash
-	if dest.slice(-1) isnt '\\'
-		dest += '\\'
-
-	# if single file
-	if path.extname(src)
-
-		if not canCompile src
-			handleErr 'Provided source file is not a compilable .etml file'
-		
-		compile src, dest, options, handleErr
-
-	else
-
-		# compile all etml files in src dir
-		fs.readdir src, (err, files) ->
-			if err then handleErr err
-
-			# remove non-compilables
-			files = files.filter (file) ->
-				return canCompile file
-
-			if not files.length
-				handleErr 'There are no compilable .etml files in provided destination'
-
-			for file in files
-				compile src + file, dest, options, handleErr
+		io src, dest, options, handleErr
