@@ -1,8 +1,9 @@
+// File: contact
 // General Variables
 $name: 'Chris';
 $this: 'etml';
 
-// Site Variables
+\// Site Variables
 $site-title: 'Awesome Website';
 $site-desc: 'A wonderful website built using {$this}';
 
