@@ -3,6 +3,8 @@ node-etml
 
 > A preprocessor that enhances HTML
 
+**NOTE: ETML IS AN IN-PROGRESS PROJECT. DOCUMENTATION FOR ETML-API AND NODE-ETML IS STRICTLY FOR POST-RELEASE AND SHOULD NOT BE REFERENCED DURING CURRENT DEVELOPMENT. NEITHER MODULES ARE AVAILABLE ON NPM AS OF YET.**
+
 This is a module that allows for etml usage within Node. For etml docs, visit [etml-api](https://github.com/chrisdothtml/etml-api). To report an issue/suggestion, please do it [here](https://github.com/chrisdothtml/etml-api/issues).
 
 For etml usage with Grunt, visit [grunt-etml](https://github.com/chrisdothtml/grunt-etml).
