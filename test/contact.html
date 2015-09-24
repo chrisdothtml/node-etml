@@ -1,70 +1,33 @@
-<html lang="en">
+// File: contact
+// General Variables
+$name: 'Chris';
+$this: 'etml';
 
-<head>
-	<title>ETML: Enhanced Text Markup Language</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" /> // External Styles
-	<link rel="stylesheet" href="font-awesome.min.css" id="fa" />
-	<link rel="stylesheet" href="owl-carousel.min.css" /> // Custom Styles
-	<link rel="stylesheet" href="core.min.css" /> // HTML5 Tags
-	<!--[if lt IE 9]>
-	<script>
-		document.createElement('header');
-		document.createElement('nav');
-		document.createElement('main');
-		document.createElement('section');
-		document.createElement('footer');
-		document.createElement('button');
-	</script>
-<![endif]-->
-</head>
+\// Site Variables
+$site-title: 'Awesome Website';
+$site-desc: 'A wonderful website built using {$this}';
 
-<body>
-	\$awesome-person: 'Not Chris :('; \
-	<header>
-		<div class="container">
-			<nav>
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="shirts.html">Shirts</a></li>
-					<li><a href="shoes.html">Shoes</a></li>
-					<li><a href="service.html">Service</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
+<!DOCTYPE html>
+<html>
+	<head>
+		<site title="{$site-title}" responsive="true" description="{$site-desc}" />
 
-	<main>
-		\//
-		<h1>Contact\// Us \//</h1>// This comment, however,\/\/\/\//\////\\//\\\\//\\/\/\\/\/ is not escaped. \// Sorry about this one, it's not escaped
+		// Vendor Styles
+		<css id="vendor-css" url="vendor.min.css" />
 
-		<h2>${awesome-person} is a really awesome person.</h2>
+		// Site Styles
+		<css url="core.min.css" />
+	</head>
+	<body>
 
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum sit amet nunc et mattis. Sed nec nibh lectus. Pellentesque rutrum, lorem at aliquam pellentesque, nunc nibh pellentesque diam, ac aliquam sapien felis in nibh. Praesent vulputate
-			et tellus et feugiat. Maecenas suscipit hendrerit ex ac efficitur. In varius ipsum at varius rutrum. Sed finibus gravida eleifend.</p>
-	</main>
+		@include 'inc/_header.etml';
 
-	<footer>
+		<h1>Hi, {$name}! Meet {$this}.</h1>
 
-		<div class="contain">
+		// Vendor Scripts
+		<js url="vendor.min.js" />
 
-			<div class="footer-links">
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="shirts.html">Shirts</a></li>
-					<li><a href="shoes.html">Shoes</a></li>
-					<li><a href="service.html">Service</a></li>
-				</ul>
-			</div>
-
-			<span>Copyright &copy; 2015 etml</span>
-		</div>
-	</footer>
-
-	// External Scripts
-	<script src="font-awesome.min.js" />
-	<script src="owl-carousel.min.js" /> // Custom Scripts
-	<script src="core.min.js" />
-</body>
-
+		// Site Scripts
+		<js url="core.min.js" />
+	</body>
 </html>
